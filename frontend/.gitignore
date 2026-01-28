@@ -6,7 +6,8 @@
 
 # misc
 .DS_Store
-.env
+# Do not ignore .env (required for environment variables)
+# .env
 
 # local env files
 .env.local

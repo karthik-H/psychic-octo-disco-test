@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserTable, { User } from "./components/UserTable";
 import LoadingError from "./components/LoadingError";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+const API_URL = process.env.REACT_APP_API_URL!;
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -11,7 +11,9 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${API_URL}/users`)
+    fetch(`${API_URL}/users`, {
+      credentials: "include",
+    })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
         return res.json();
@@ -21,7 +23,11 @@ function App() {
         setError(null);
       })
       .catch((err) => {
-        setError(err.message || "Failed to fetch users");
+        if (err.name === "TypeError" && err.message.includes("Failed to fetch")) {
+          setError("Could not connect to backend API. Check your backend server and CORS settings.");
+        } else {
+          setError(err.message || "Failed to fetch users");
+        }
         setUsers([]);
       })
       .finally(() => setLoading(false));

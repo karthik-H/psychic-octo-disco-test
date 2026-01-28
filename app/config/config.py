@@ -10,5 +10,5 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    JSONPLACEHOLDER_BASE_URL = os.getenv("JSONPLACEHOLDER_BASE_URL", "https://jsonplaceholder.typicode.com")
-    USER_CSV_PATH = os.getenv("USER_CSV_PATH", "output/users.csv")
+    JSONPLACEHOLDER_BASE_URL = os.getenv("JSONPLACEHOLDER_BASE_URL")
+    USER_CSV_PATH = os.getenv("USER_CSV_PATH")

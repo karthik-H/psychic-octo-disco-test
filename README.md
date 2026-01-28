@@ -1,125 +1,120 @@
 # User Directory Application
 
-This project provides a production-ready, full-stack solution for viewing user data in a table format. It consists of a Python backend and a React TypeScript frontend, following clean architecture and industry best practices.
+This project provides a production-ready, clean-architecture implementation for browsing user data in a table format. It consists of a Python Flask backend and a React TypeScript frontend.
 
 ---
 
-## Features
+## Folder Structure
 
-- **Backend**: Python (Flask), clean architecture, fetches users from JSONPlaceholder, exposes `/users` API, CORS enabled, config via `.env`.
-- **Frontend**: React + TypeScript, modular, displays all user fields in a readable table, error/loading handling, config via `.env`.
+- `app/` - Backend (Flask, Clean Architecture)
+- `frontend/` - Frontend (React, TypeScript, Clean Structure)
+- `.env` - Backend environment variables
+- `frontend/.env` - Frontend environment variables
 
 ---
 
 ## Prerequisites
 
 - Python 3.8+
-- Node.js 18+
-- npm 9+
-- (Recommended) Use a virtual environment for Python
+- Node.js 18+ and npm 9+
+- (Recommended) Use a Python virtual environment
 
 ---
 
-## Setup Instructions
+## Backend Setup
 
-### 1. Clone the repository
+1. **Install dependencies:**
+   ```bash
+   pip install --upgrade -r requirements.txt
+   ```
 
-```bash
-git clone <repo-url>
-cd <repo-directory>
-```
+2. **Configure environment:**
+   - Edit `.env` for backend settings (API base URL, CSV path, port, CORS origin).
 
-### 2. Backend Setup
-
-```bash
-# Create and activate a virtual environment (recommended)
-python3 -m venv .venv
-source .venv/bin/activate
-
-# Install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Configure environment variables
-cp .env.example .env  # or edit .env as needed
-
-# Start the backend server
-python -m app.api.server
-```
-
-The backend will run on `http://localhost:5000` by default.
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
-npm install
-cp .env.example .env  # or edit .env as needed
-npm start
-```
-
-The frontend will run on `http://localhost:3000` by default.
+3. **Run the backend server:**
+   ```bash
+   python -m app.api.server
+   ```
+   The backend will start on the port specified in `.env` (default: 5001).
 
 ---
 
-## Configuration
+## Frontend Setup
 
-- All environment variables are managed in `.env` files for both backend and frontend.
-- Update `FRONTEND_ORIGIN` in the backend `.env` to match your frontend URL for CORS.
-- Update `REACT_APP_API_URL` in the frontend `.env` to match your backend API URL.
+1. **Install dependencies:**
+   ```bash
+   npm install --prefix frontend
+   ```
+
+2. **Configure environment:**
+   - Edit `frontend/.env` to set the backend API URL (must match backend port and CORS origin).
+
+3. **Run the frontend:**
+   ```bash
+   npm start --prefix frontend
+   ```
+   The frontend will start on [http://localhost:3000](http://localhost:3000) by default.
+
+---
+
+## Environment Variables
+
+### Backend (`.env`)
+- `JSONPLACEHOLDER_BASE_URL` - Upstream API base URL
+- `USER_CSV_PATH` - Path for CSV export
+- `BACKEND_PORT` - Backend server port (default: 5001)
+- `FRONTEND_ORIGIN` - Allowed frontend origin for CORS
+
+### Frontend (`frontend/.env`)
+- `REACT_APP_API_URL` - Backend API URL (e.g., `http://localhost:5001`)
 
 ---
 
 ## Usage
 
-- Open your browser at `http://localhost:3000`
-- The UI will display all users in a table with the following fields:
-  - id, name, username, email, phone, website, address, company
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
+- The UI displays all user data in a table, with columns for all required fields.
+- The backend fetches user data from JSONPlaceholder and exposes it at `/users`.
 
 ---
 
-## Folder Structure
+## Linting & Style
 
-```
-.
-├── app/
-│   ├── api/
-│   │   └── server.py
-│   ├── config/
-│   ├── controller/
-│   ├── domain/
-│   ├── repository/
-│   └── service/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── UserTable.tsx
-│   │   │   └── LoadingError.tsx
-│   │   └── App.tsx
-│   └── .env
-├── .env
-├── .gitignore
-├── requirements.txt
-└── README.md
-```
+- Python: [PEP8](https://pep8.org/) (use `flake8` for linting)
+- TypeScript/React: [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react) (use `eslint`)
 
 ---
 
 ## Notes
 
-- Do **not** commit `.env` files with secrets.
-- All dependencies are up to date as of project creation.
-- For production, use a proper WSGI server (e.g., gunicorn) and a production-ready Node build.
+- All configuration is managed via `.env` files.
+- No sensitive data is committed.
+- CORS is configured for local development.
+- All dependencies are up to date as of project setup.
 
 ---
 
 ## Troubleshooting
 
-- If you encounter CORS issues, ensure the backend `.env` `FRONTEND_ORIGIN` matches your frontend URL.
-- If ports are in use, update the `.env` files accordingly.
+- If you see CORS or network errors, ensure both backend and frontend are running and the ports/origins match in `.env` files.
+- For dependency issues, run `pip install --upgrade -r requirements.txt` and `npm install --prefix frontend`.
+
+---
+
+## Test & Export
+
+- Backend includes test scripts in `tests/`.
+- User data can be exported to CSV via the backend.
+
+---
+
+## Clean Architecture
+
+- Backend: Controller → Service → Domain → Repository
+- Frontend: Components are modular and reusable.
 
 ---
 
 ## License
 
-MIT
+MIT License
