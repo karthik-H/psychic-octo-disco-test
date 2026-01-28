@@ -48,8 +48,8 @@ def get_users():
             }
         return jsonify([user_to_dict(u) for u in users]), 200
     except Exception as e:
-        logging.error(f"Error in /users: {e}")
-        return jsonify({"error": str(e)}), 500
+        logging.exception("Error in /users")
+        return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == "__main__":
     port = int(os.getenv("BACKEND_PORT", 5000))
