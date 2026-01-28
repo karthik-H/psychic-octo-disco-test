@@ -1,5 +1,5 @@
 """
-Entrypoint/controller for fetching and displaying user data.
+Entrypoint/controller for fetching, displaying, and exporting user data to CSV.
 """
 
 import logging
@@ -18,6 +18,9 @@ def main():
                   f"(Geo: {user.address.geo.lat}, {user.address.geo.lng})")
             print(f"  Company: {user.company.name}, {user.company.catchPhrase}, {user.company.bs}")
             print("-" * 60)
+        # Export to CSV
+        csv_path = user_service.export_users_to_csv()
+        logging.info(f"User data exported to CSV: {csv_path}")
     except Exception as e:
         logging.error(f"Error: {e}")
 

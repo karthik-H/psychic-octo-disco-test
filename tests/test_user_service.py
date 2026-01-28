@@ -27,6 +27,10 @@ class MockUserRepository:
             }
         ]
 
+    def persist_users_to_csv(self, users):
+        # Simulate CSV export
+        return "/tmp/fake.csv"
+
 def test_get_all_users_success():
     service = UserService(user_repository=MockUserRepository())
     users = service.get_all_users()
@@ -45,3 +49,8 @@ def test_get_all_users_parse_error():
     service = UserService(user_repository=BadRepo())
     with pytest.raises(RuntimeError):
         service.get_all_users()
+
+def test_export_users_to_csv():
+    service = UserService(user_repository=MockUserRepository())
+    csv_path = service.export_users_to_csv()
+    assert csv_path == "/tmp/fake.csv"
