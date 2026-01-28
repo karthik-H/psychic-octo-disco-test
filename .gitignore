@@ -6,7 +6,40 @@ __pycache__/
 *.pyc
 
 # Virtualenv
-.env/
+# Virtualenv
+.venv/
+env/
+venv/
+
+# Python environment
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Misc
+*.bak
+*.tmp
 .venv/
 env/
 venv/

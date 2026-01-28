@@ -19,6 +19,15 @@ class UserService:
         raw_users = self.user_repository.fetch_users()
         return [self._parse_user(u) for u in raw_users]
 
+    def export_users_to_csv(self) -> str:
+        """
+        Fetches all users and persists them to a CSV file.
+        Returns the path to the CSV file.
+        Raises RuntimeError on fetch or persistence errors.
+        """
+        users = self.user_repository.fetch_users()
+        return self.user_repository.persist_users_to_csv(users)
+
     def _parse_user(self, data: dict) -> User:
         try:
             geo = Geo(
