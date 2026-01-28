@@ -6,7 +6,6 @@ __pycache__/
 *.pyc
 
 # Virtualenv
-# Virtualenv
 .venv/
 env/
 venv/
@@ -25,6 +24,8 @@ dist/
 
 # Node
 node_modules/
+frontend/node_modules/
+frontend/build/
 
 # OS
 .DS_Store
@@ -40,20 +41,12 @@ node_modules/
 # Misc
 *.bak
 *.tmp
-.venv/
-env/
-venv/
 
-# Build
-build/
-dist/
-*.egg-info/
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Node
-node_modules/
-
-# OS
-.DS_Store
-
-# Others
-*.log
+# Output
+output/

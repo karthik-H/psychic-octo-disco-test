@@ -1,76 +1,124 @@
-# User Information Fetcher
+# User Directory Application
 
-This application fetches user information from the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/users) in a production-ready, modular, and testable manner using Python and clean architecture principles.
+This project provides a production-ready, full-stack solution for viewing user data in a table format. It consists of a Python backend and a React TypeScript frontend, following clean architecture and industry best practices.
+
+---
 
 ## Features
 
-- Fetches and parses all user data from the public JSONPlaceholder API
-- Clean, layered architecture (controller → service → repository → domain)
-- Environment-based configuration management
-- Graceful error handling and logging
-- Easily extensible and testable
-- **Exports all user data to a CSV file, with all fields (including nested) flattened for compatibility with spreadsheet software**
+- **Backend**: Python (Flask), clean architecture, fetches users from JSONPlaceholder, exposes `/users` API, CORS enabled, config via `.env`.
+- **Frontend**: React + TypeScript, modular, displays all user fields in a readable table, error/loading handling, config via `.env`.
+
+---
+
+## Prerequisites
+
+- Python 3.8+
+- Node.js 18+
+- npm 9+
+- (Recommended) Use a virtual environment for Python
+
+---
+
+## Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone <repo-url>
+cd <repo-directory>
+```
+
+### 2. Backend Setup
+
+```bash
+# Create and activate a virtual environment (recommended)
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# Configure environment variables
+cp .env.example .env  # or edit .env as needed
+
+# Start the backend server
+python -m app.api.server
+```
+
+The backend will run on `http://localhost:5000` by default.
+
+### 3. Frontend Setup
+
+```bash
+cd frontend
+npm install
+cp .env.example .env  # or edit .env as needed
+npm start
+```
+
+The frontend will run on `http://localhost:3000` by default.
+
+---
+
+## Configuration
+
+- All environment variables are managed in `.env` files for both backend and frontend.
+- Update `FRONTEND_ORIGIN` in the backend `.env` to match your frontend URL for CORS.
+- Update `REACT_APP_API_URL` in the frontend `.env` to match your backend API URL.
+
+---
+
+## Usage
+
+- Open your browser at `http://localhost:3000`
+- The UI will display all users in a table with the following fields:
+  - id, name, username, email, phone, website, address, company
+
+---
 
 ## Folder Structure
 
 ```
-app/
-  ├── config/           # Configuration loader
-  ├── controller/       # Entrypoint/controller
-  ├── domain/           # Domain models
-  ├── repository/       # API communication and CSV persistence
-  ├── service/          # Business logic
-tests/                  # Unit tests
-.env                    # Environment variables
-requirements.txt        # Python dependencies
-.gitignore              # Git ignore rules
+.
+├── app/
+│   ├── api/
+│   │   └── server.py
+│   ├── config/
+│   ├── controller/
+│   ├── domain/
+│   ├── repository/
+│   └── service/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── UserTable.tsx
+│   │   │   └── LoadingError.tsx
+│   │   └── App.tsx
+│   └── .env
+├── .env
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
 
-## Setup & Run Instructions
-
-1. **Clone the repository**
-
-2. **Create and activate a virtual environment (recommended):**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configure environment variables:**
-   - Edit the `.env` file if you need to change the API base URL or CSV output path (defaults are set).
-
-5. **Run the application:**
-   ```bash
-   python app/controller/main.py
-   ```
-   - This will fetch all users from the API and export them to a CSV file at the path specified by `USER_CSV_PATH` in your `.env` (default: `output/users.csv`).
-
-6. **Run tests:**
-   ```bash
-   pytest
-   ```
-
-## Environment Variables
-
-- `JSONPLACEHOLDER_BASE_URL` (default: `https://jsonplaceholder.typicode.com`)
-- `USER_CSV_PATH` (default: `output/users.csv`)
-
-## Output
-
-- The CSV file will contain all user fields, including nested fields (e.g., `address.street`, `address.geo.lat`, `company.name`), as columns.
-- The CSV is compatible with Microsoft Excel, Google Sheets, and other spreadsheet software.
+---
 
 ## Notes
 
-- No authentication is required for the API.
-- All configuration is managed via `.env` and environment variables.
-- The application handles network errors and invalid responses gracefully.
-- The codebase follows PEP8 and clean architecture best practices.
+- Do **not** commit `.env` files with secrets.
+- All dependencies are up to date as of project creation.
+- For production, use a proper WSGI server (e.g., gunicorn) and a production-ready Node build.
+
+---
+
+## Troubleshooting
+
+- If you encounter CORS issues, ensure the backend `.env` `FRONTEND_ORIGIN` matches your frontend URL.
+- If ports are in use, update the `.env` files accordingly.
+
+---
 
 ## License
 
